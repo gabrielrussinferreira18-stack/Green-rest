@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Green Rest Mattress — Relatório Instagram</title>
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#020617;
+      --card-soft:#020617;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#22d3ee;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --border:rgba(148,163,184,.35);
+      --shadow:0 18px 45px rgba(0,0,0,.65);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+      background:radial-gradient(circle at top,#0b1120 0,#020617 55%,#000 100%);
+      color:var(--text);
+      padding:28px;
+      line-height:1.6;
+    }
+    .wrap{max-width:1040px;margin:0 auto}
+    header{
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid var(--border);
+    }
+    .brand-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:16px;
+    }
+    .brand-block{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .brand-block img{
+      max-height:56px;
+      width:auto;
+      object-fit:contain;
+      display:block;
+    }
+    .brand-caption{
+      font-size:11px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .title h1{
+      margin:0;
+      font-size:clamp(22px,4.5vw,30px);
+      letter-spacing:.02em;
+    }
+    .title .sub{
+      color:var(--muted);
+      font-size:clamp(12px,3.1vw,14px);
+      margin-top:4px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 10px;border-radius:999px;
+      background:rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.4);
+      color:var(--muted);font-size:11px;
+    }
+    .pill .dot{
+      width:8px;height:8px;border-radius:999px;
+      background:var(--accent);box-shadow:0 0 12px var(--accent);
+    }
+    .card{
+      background:radial-gradient(circle at top,rgba(15,23,42,.85),rgba(15,23,42,.92));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px 20px 18px;
+      box-shadow:var(--shadow);
+      margin:16px 0;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:radial-gradient(circle at top left,rgba(34,211,238,.12),transparent 55%);
+      opacity:.45;
+      pointer-events:none;
+    }
+    .card-inner{position:relative;z-index:1}
+    h2{font-size:clamp(18px,4vw,22px);margin:0 0 10px}
+    h3{font-size:clamp(15px,3.4vw,18px);margin:12px 0 6px}
+    p{margin:6px 0;font-size:14px}
+    ul{margin:6px 0 6px 18px;padding:0;font-size:14px}
+    li+li{margin-top:4px}
+    .grid{display:grid;gap:14px}
+    @media(min-width:880px){.grid-2{grid-template-columns:1.15fr .95fr}}
+    .badge{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:3px 9px;border-radius:999px;
+      border:1px solid rgba(148,163,184,.6);
+      background:rgba(15,23,42,.9);
+      font-size:11px;color:var(--muted);
+    }
+    .badge.ok{border-color:rgba(52,211,153,.6);color:#bbf7d0}
+    .badge.warn{border-color:rgba(251,191,36,.7);color:#fef3c7}
+    .badge.danger{border-color:rgba(248,113,113,.8);color:#fee2e2}
+    .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+    .tag{
+      padding:3px 8px;border-radius:999px;
+      border:1px solid rgba(148,163,184,.5);
+      font-size:11px;color:var(--muted);
+    }
+    .table-wrap{width:100%;overflow-x:auto;margin-top:6px}
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(148,163,184,.5);
+      font-size:13px;
+    }
+    th,td{padding:9px 10px;text-align:left;vertical-align:top}
+    thead th{
+      background:rgba(15,23,42,.95);
+      color:#cbd5f5;
+      font-weight:600;
+      font-size:12px;
+      border-bottom:1px solid rgba(148,163,184,.45);
+    }
+    tbody tr:nth-child(odd){background:rgba(15,23,42,.7)}
+    tbody tr:nth-child(even){background:rgba(15,23,42,.9)}
+    tbody td+td{border-left:1px solid rgba(148,163,184,.25)}
+    .note{font-size:12px;color:var(--muted);margin-top:6px}
+    footer{
+      margin-top:26px;
+      color:var(--muted);
+      font-size:11px;
+      text-align:right;
+    }
+    @media(max-width:720px){
+      body{padding:18px}
+      header{padding-bottom:14px}
+      .brand-row{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .card{padding:16px}
+      table{border:0}
+      thead{display:none}
+      tbody, tr, td{display:block;width:100%}
+      tbody tr{
+        border:1px solid rgba(148,163,184,.4);
+        border-radius:12px;
+        margin:10px 0;
+        overflow:hidden;
+      }
+      tbody tr:nth-child(odd),
+      tbody tr:nth-child(even){background:rgba(15,23,42,.9)}
+      tbody td{
+        border:0;
+        padding:8px 10px;
+        border-top:1px solid rgba(148,163,184,.28);
+      }
+      tbody td:first-child{border-top:0}
+      tbody td::before{
+        content:attr(data-label);
+        display:block;
+        font-size:11px;
+        color:var(--muted);
+        margin-bottom:2px;
+        text-transform:uppercase;
+        letter-spacing:.06em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand-row">
+        <div class="brand-block">
+          <img src="4uit.png" alt="4U IT Logo">
+          <div class="brand-caption">Relatório produzido por 4U IT</div>
+        </div>
+        <div class="brand-block">
+          <img src="greenrest-logo.png" alt="Green Rest Logo">
+          <div class="brand-caption">Cliente: Green Rest Mattress</div>
+        </div>
+      </div>
+      <div class="title">
+        <h1>Relatório de Otimização — Instagram @greenrestmattress</h1>
+        <div class="sub">
+          Diagnóstico geral do perfil e recomendações alinhadas às campanhas de Tecnologia, Bem-estar e Fabricação Americana.
+        </div>
+        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="pill"><span class="dot"></span><span>Mercado: Flórida</span></span>
+          <span class="pill">Canal: Instagram (Feed, Reels, Stories, Destaques)</span>
+          <span class="pill">Foco: Marca + Conversão</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 1. Bio & Estrutura -->
+    <section class="card">
+  <div class="card-inner">
+
+    <!-- Título da Seção -->
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+      <div style="width:6px; height:28px; background:#22d3ee; border-radius:4px;"></div>
+      <h2 style="margin:0;">1. Bio & Estrutura do Perfil</h2>
+    </div>
+
+    <!-- Subtexto -->
+    <p style="max-width:820px;">
+      A bio atual é genérica e não comunica com clareza os principais diferenciais da Green Rest. 
+      Falta evidenciar tecnologia MedFIR, foco em recuperação e produção americana. 
+      Além disso, o CTA não direciona para conversão.
+    </p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:24px;">
+
+      <!-- Diagnóstico -->
+      <div style="background:rgba(255,255,255,0.03); padding:20px; border-radius:16px; border:1px solid rgba(255,255,255,0.05); box-shadow:0 0 40px rgba(0,0,0,0.25);">
+        
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" 
+               style="width:22px; opacity:.85;">
+          <h3 style="margin:0;">Diagnóstico</h3>
+          <span style="
+              background:#fbbf24; 
+              color:#000;
+              padding:4px 10px; 
+              border-radius:20px; 
+              font-size:11px; 
+              font-weight:600;">
+              Pode melhorar
+          </span>
+        </div>
+
+        <ul style="margin:0; padding-left:18px; line-height:1.55;">
+          <li>Mensagem ampla, sem demonstrar o verdadeiro diferencial da marca.</li>
+          <li>Tecnologia MedFIR, recuperação muscular e “American built” quase invisíveis.</li>
+          <li>Link da bio sem direcionamento estratégico.</li>
+        </ul>
+      </div>
+
+      <!-- O que ajustar -->
+      <div style="background:rgba(255,255,255,0.03); padding:20px; border-radius:16px; border:1px solid rgba(255,255,255,0.05); box-shadow:0 0 40px rgba(0,0,0,0.25);">
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" 
+               style="width:22px; opacity:.85;">
+          <h3 style="margin:0;">O que ajustar</h3>
+        </div>
+
+        <ul style="margin:0; padding-left:18px; line-height:1.55;">
+          <li>Reescrever a bio com proposta de valor objetiva e clara.</li>
+          <li>Organizar o link da bio via <strong>Linktree</strong> com: site, teste de colchão, produtos, localização e contato.</li>
+          <li>Evitar hashtags e usar emojis apenas para estrutura visual.</li>
+        </ul>
+
+        <p class="note" style="margin-top:14px; color:#9ca3af; font-size:12px;">
+          <strong>Sugestão de bio:</strong><br>
+          <em>“Sleep technology for pain-free nights. MedFIR® infrared therapy + American built quality. Orlando, FL. Tap the Linktree to test your next mattress.”</em>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+    <!-- 2. Identidade Visual -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>2. Identidade Visual do Feed</h2>
+        <p>
+          O feed hoje não tem uma identidade visual totalmente consistente. Para fortalecer o reconhecimento, é importante que qualquer
+          post “pareça Green Rest” em poucos segundos.
+        </p>
+        <div class="grid grid-2">
+          <div>
+            <h3>Diagnóstico <span class="badge warn">Consistência média</span></h3>
+            <ul>
+              <li>Paleta de cores variando entre as postagens.</li>
+              <li>Tipografias e estilos de arte diferentes em cada criativo.</li>
+              <li>Logo e selo “Made in USA” aparecem pouco.</li>
+            </ul>
+            <p class="note">
+              Resultado: feed menos reconhecível, com sensação de peças soltas, em vez de uma marca forte e coesa.
+            </p>
+          </div>
+          <div>
+            <h3>Recomendações visuais</h3>
+            <ul>
+              <li>Definir paleta base (verde escuro, branco, cinza) e aplicá-la em todas as artes.</li>
+              <li>Criar templates fixos para: tecnologia, bem-estar e institucional.</li>
+              <li>Inserir logo/selo “Made in USA” de forma discreta em posts estratégicos.</li>
+              <li>Usar o mesmo estilo de filtro/edição nas fotos para manter unidade.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Paleta definida</span>
+              <span class="tag">Templates</span>
+              <span class="tag">Logo &amp; selo USA</span>
+              <span class="tag">Feed coeso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Conteúdo & Mensagem -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>3. Conteúdo & Mensagem</h2>
+        <p>
+          Os conteúdos falam de conforto e sono, mas ainda faltam profundidade técnica, educação, storytelling e prova social
+          recorrente. Cada post precisa ter um objetivo claro.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimensão</th>
+                <th>Situação atual</th>
+                <th>Oportunidades</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Dimensão">Tecnologia (MedFIR)</td>
+                <td data-label="Situação atual">Mencionada, mas pouco explicada em detalhes práticos.</td>
+                <td data-label="Oportunidades">Carrosséis “Por dentro do colchão”, infográficos, Reels explicando como o MedFIR atua na circulação e dores.</td>
+              </tr>
+              <tr>
+                <td data-label="Dimensão">Bem-estar</td>
+                <td data-label="Situação atual">Comunicado via conforto, mas ainda raso em nível de saúde e rotina.</td>
+                <td data-label="Oportunidades">Posts com dados sobre sono, dicas práticas, impacto em humor, energia e produtividade.</td>
+              </tr>
+              <tr>
+                <td data-label="Dimensão">Prova social</td>
+                <td data-label="Situação atual">Alguns depoimentos, mas sem frequência e formato de série.</td>
+                <td data-label="Oportunidades">Quadros fixos de clientes e atletas contando histórias reais e específicas.</td>
+              </tr>
+              <tr>
+                <td data-label="Dimensão">CTAs &amp; engajamento</td>
+                <td data-label="Situação atual">Legendas muitas vezes informativas, mas pouco convidativas à interação.</td>
+                <td data-label="Oportunidades">Inserir perguntas, incentivos para salvar/compartilhar e “marque alguém”.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          Direção: transformar o feed em um mix equilibrado de educação, inspiração, prova técnica e conversão.
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. Qualidade vs Quantidade -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>4. Qualidade vs. Quantidade (Frequência de Posts)</h2>
+        <p>
+          A frequência atual é baixa, mas o maior problema não é “número de posts por semana” e sim a ausência de um planejamento
+          realmente estratégico. Focar apenas em volume é um erro comum.
+        </p>
+        <div class="grid grid-2">
+          <div>
+            <h3>Riscos de focar em quantidade <span class="badge danger">Atenção</span></h3>
+            <ul>
+              <li>Feed poluído com artes feitas às pressas, sem propósito.</li>
+              <li>Queda de engajamento, pois o público ignora conteúdos rasos.</li>
+              <li>Desgaste visual da marca, que perde autoridade.</li>
+              <li>Mensagens desconectadas dos pilares de tecnologia, bem-estar e qualidade.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>O que realmente importa</h3>
+            <ul>
+              <li>É melhor publicar menos, porém com posts fortes, claros e alinhados à estratégia.</li>
+              <li>Cada peça precisa comunicar algo que possa gerar percepção de valor e conversão.</li>
+              <li>Posts devem ser pensados como “episódios” da mesma narrativa de marca.</li>
+            </ul>
+            <p class="note">
+              Diretriz: melhor 1 conteúdo bem construído e estratégico do que 5 genéricos só para “encher o feed”.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Stories & Destaques -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>5. Stories &amp; Destaques</h2>
+        <p>
+          Stories e Destaques são ferramentas-chave para relacionamento, bastidores e acesso rápido a informações importantes.
+        </p>
+        <div class="grid grid-2">
+          <div>
+            <h3>Stories</h3>
+            <ul>
+              <li>Ainda há espaço para usar Stories de forma mais estratégica.</li>
+              <li>São ideais para bastidores, demonstrações rápidas, dúvidas frequentes e enquetes.</li>
+              <li>Podem reforçar diariamente os pilares: tecnologia, bem-estar e qualidade.</li>
+            </ul>
+            <p class="note">
+              Recomenda-se usar stickers de enquete, quiz e perguntas para aumentar a interação e captar insights da audiência.
+            </p>
+          </div>
+          <div>
+            <h3>Destaques (Highlights)</h3>
+            <ul>
+              <li>Os Destaques já estão bons e cumprem bem o papel de organizar conteúdos importantes.</li>
+              <li>Visualmente, passam boa primeira impressão e ajudam a entender a marca rapidamente.</li>
+              <li>O principal agora é apenas manter os Destaques atualizados quando surgirem conteúdos realmente relevantes.</li>
+            </ul>
+            <p class="note">
+              Não há necessidade de grandes mudanças estruturais nos Destaques neste momento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Reels -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>6. Reels &amp; Vídeos Curtos</h2>
+        <p>
+          Reels são hoje o formato mais importante para alcance orgânico e descoberta de novos públicos. O potencial da Green Rest
+          nesse formato ainda não está sendo totalmente explorado.
+        </p>
+        <div class="grid grid-2">
+          <div>
+            <h3>Direção criativa</h3>
+            <ul>
+              <li>Reels curtos (10–20s) com ganchos fortes nos 3 primeiros segundos.</li>
+              <li>Uso de músicas/tendências em alta, mantendo sobriedade da marca.</li>
+              <li>Storytelling visual: “antes e depois de uma noite em um Green Rest”, rotina de atleta, etc.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Ideias de séries</h3>
+            <ul>
+              <li><strong>Tech in 15s:</strong> cada vídeo explica um benefício técnico (MedFIR, suporte da coluna, circulação).</li>
+              <li><strong>Sleep Tips:</strong> dicas rápidas de sono com convite para salvar o vídeo.</li>
+              <li><strong>Real Stories:</strong> clientes e atletas contando em poucas frases o que mudou no corpo e no dia a dia.</li>
+            </ul>
+            <p class="note">
+              Objetivo: tornar os Reels o motor principal de alcance, enquanto o feed fixa autoridade e consistência.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Engajamento -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>7. Engajamento</h2>
+        <p>
+          O engajamento atual está abaixo do potencial da conta. É preciso estimular mais conversa, salvamentos e compartilhamentos.
+        </p>
+        <div class="grid grid-2">
+          <div>
+            <h3>Gargalos</h3>
+            <ul>
+              <li>Poucas perguntas diretas nas legendas.</li>
+              <li>Poucos estímulos para salvar ou compartilhar o conteúdo.</li>
+              <li>Interação limitada com outros perfis locais e do nicho.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Alavancas</h3>
+            <ul>
+              <li>Encerrar legendas com perguntas do tipo: “Qual a sua maior dificuldade para dormir hoje?”</li>
+              <li>Criar conteúdos “salváveis” (listas, dicas, checklists).</li>
+              <li>Responder todos os comentários de forma rápida e personalizada.</li>
+              <li>Comentar em perfis de academias, clínicas, fisioterapeutas e influenciadores locais.</li>
+            </ul>
+            <p class="note">
+              Meta: transformar o perfil em uma conversa contínua sobre sono, saúde e recuperação – não só um catálogo de produtos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Alinhamento com campanhas -->
+    <section class="card">
+      <div class="card-inner">
+        <h2>8. Alinhamento com as 3 Campanhas-Chave</h2>
+        <p>
+          Todo o conteúdo orgânico deve conversar direta ou indiretamente com os três pilares definidos: Tecnologia, Bem-estar e
+          Fabricação Americana.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pilar</th>
+                <th>Mensagem central</th>
+                <th>Exemplos de conteúdo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Pilar"><strong>Tecnologia MedFIR</strong></td>
+                <td data-label="Mensagem central">“Melhora circulação, reduz dores e acelera recuperação durante o sono.”</td>
+                <td data-label="Exemplos de conteúdo">
+                  Carrosséis técnicos, infográficos simples, Reels “Tech in 15s”, cortes mostrando as camadas do colchão e animações explicando o infravermelho.
+                </td>
+              </tr>
+              <tr>
+                <td data-label="Pilar"><strong>Bem-estar</strong></td>
+                <td data-label="Mensagem central">“Dormir bem muda humor, energia, disposição e qualidade de vida.”</td>
+                <td data-label="Exemplos de conteúdo">
+                  Dicas de sono saudável, dados de saúde, relatos de melhora de dores e cansaço, conteúdos motivacionais ligados a descanso e performance.
+                </td>
+              </tr>
+              <tr>
+                <td data-label="Pilar"><strong>Fabricação Americana</strong></td>
+                <td data-label="Mensagem central">“American built. Qualidade real, confiança real.”</td>
+                <td data-label="Exemplos de conteúdo">
+                  Fotos e vídeos da fábrica, equipe de produção, selo “Made in USA”, bastidores em Orlando e posts em datas estratégicas que reforcem orgulho e confiança.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          Objetivo: ao rolar o feed por poucos segundos, qualquer pessoa deve perceber que a Green Rest é tecnológica, voltada para
+          saúde e orgulhosamente americana.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Relatório estratégico para Instagram • Green Rest Mattress • Elaborado por 4U IT • Versão 1.0
+    </footer>
+  </div>
+</body>
+</html>
